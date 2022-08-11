@@ -88,7 +88,7 @@ fn gone_counter_handler_b(counters_reader: &CountersReader, registration_id: i64
 #[test]
 fn test_counter_create() {
     pretty_env_logger::init();
-    let md = common::start_aeron_md();
+    // let md = common::start_aeron_md();
 
     let mut context_a = Context::new();
     let mut context_b = Context::new();
@@ -126,5 +126,5 @@ fn test_counter_create() {
     assert!(HANDLER_A_CALLED.load(Ordering::SeqCst));
     assert!(HANDLER_B_CALLED.load(Ordering::SeqCst));
 
-    common::stop_aeron_md(md);
+    // common::stop_aeron_md(md);
 }

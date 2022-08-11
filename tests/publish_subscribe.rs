@@ -62,7 +62,7 @@ fn on_new_publication_handler(channel: CString, stream_id: i32, session_id: i32,
 
 #[test]
 fn test_publication_create() {
-    let md = common::start_aeron_md();
+    // let md = common::start_aeron_md();
 
     let mut context = Context::new();
 
@@ -87,7 +87,7 @@ fn test_publication_create() {
     // At this point publication must be created and be available for publishing
     assert_eq!(publication.unwrap().lock().unwrap().channel_status(), CHANNEL_ENDPOINT_ACTIVE);
 
-    common::stop_aeron_md(md);
+    // common::stop_aeron_md(md);
 }
 
 fn on_new_subscription_handler(channel: CString, stream_id: i32, correlation_id: i64) {
@@ -96,7 +96,7 @@ fn on_new_subscription_handler(channel: CString, stream_id: i32, correlation_id:
 
 #[test]
 fn test_subscription_create() {
-    let md = common::start_aeron_md();
+    // let md = common::start_aeron_md();
 
     let mut context = Context::new();
 
@@ -124,7 +124,7 @@ fn test_subscription_create() {
         CHANNEL_ENDPOINT_ACTIVE
     );
 
-    common::stop_aeron_md(md);
+    // common::stop_aeron_md(md);
 }
 
 lazy_static! {
@@ -145,7 +145,7 @@ fn on_new_fragment_check_payload(buffer: &AtomicBuffer, offset: Index, length: I
 
 #[test]
 fn test_unfragmented_msg() {
-    let md = common::start_aeron_md();
+    // let md = common::start_aeron_md();
 
     let mut context = Context::new();
 
@@ -214,7 +214,7 @@ fn test_unfragmented_msg() {
 
     assert!(ON_NEW_FRAGMENT_CALLED.load(Ordering::SeqCst));
 
-    common::stop_aeron_md(md);
+    // common::stop_aeron_md(md);
 }
 
 // Message in Aeron becomes fragmented when its length is grater than MTU. MTU is configured on driver
@@ -226,7 +226,7 @@ fn test_unfragmented_msg() {
 // Thus message with 256 body size will be split in to 8 fragments.
 #[test]
 fn test_fragmented_msg() {
-    let md = common::start_aeron_md_mtu("64");
+    // let md = common::start_aeron_md_mtu("64");
 
     let mut context = Context::new();
 
@@ -306,7 +306,7 @@ fn test_fragmented_msg() {
         idle_strategy.idle_opt(fragments_read);
     }
 
-    common::stop_aeron_md(md);
+    // common::stop_aeron_md(md);
 }
 
 lazy_static! {
@@ -338,7 +338,7 @@ fn on_new_fragment_check_seq_no(buffer: &AtomicBuffer, offset: Index, length: In
 // messages with monotonically growing sequence numbers.
 #[test]
 fn test_sequential_consistency() {
-    let md = common::start_aeron_md();
+    // let md = common::start_aeron_md();
 
     let messages_to_send: i64 = 10_000_000;
 
@@ -409,7 +409,7 @@ fn test_sequential_consistency() {
 
     let _unused = subscriber_thread.join();
 
-    common::stop_aeron_md(md);
+    // common::stop_aeron_md(md);
 
     assert!(!SEQ_CHECK_FAILED.load(Ordering::SeqCst));
 }
